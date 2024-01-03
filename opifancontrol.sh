@@ -16,12 +16,12 @@ FAN_GPIO_PIN=2
 PWM_RANGE=1024
 PWM_CLOCK=375
 
-CONFIG_FILE="/etc/opi5plus-fancontrol.conf"
+CONFIG_FILE="/etc/opifancontrol.conf"
 
 if [ -r "$CONFIG_FILE" ]; then
     source "$CONFIG_FILE"
 else
-    echo "Warning: Configuration file not found at /etc/opi5plus-fancontrol.conf. Using default values."
+    echo "Warning: Configuration file not found at /etc/opifancontrol.conf. Using default values."
 fi
 
 CURRENT_PWM=0

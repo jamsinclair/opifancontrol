@@ -13,7 +13,7 @@ Installed the [wiringOP](https://github.com/orangepi-xunlong/wiringOP) library. 
 Run the following command to install the fan controller:
 
 ```bash
-# if you need 
+# Run again with sudo if you get permission errors
 curl -sSL https://raw.githubusercontent.com/jamsinclair/opifancontrol/main/install.sh | bash
 ```
 
@@ -80,6 +80,23 @@ RAMP_DOWN_DELAY_SECONDS=60
 # The PWM range and clock are used to control the fan speed. You shouldn't need to change these unless you know what you're doing.
 PWM_RANGE=1024
 PWM_CLOCK=375
+```
+
+## Uninstallation
+
+To uninstall the fan controller, first stop and disable the service:
+
+```bash
+systemctl stop opifancontrol.service
+systemctl disable opifancontrol.service
+```
+
+Then remove the files:
+
+```bash
+rm /usr/local/bin/opifancontrol
+rm /etc/opifancontrol.conf
+rm /etc/systemd/system/opifancontrol.service
 ```
 
 ## License
