@@ -93,7 +93,7 @@ systemctl disable opifancontrol.service
 Then remove the files:
 
 ```bash
-rm /usr/local/bin/opifancontrol
+rm /usr/local/bin/opifancontrol.sh
 rm /etc/opifancontrol.conf
 rm /etc/systemd/system/opifancontrol.service
 ```
