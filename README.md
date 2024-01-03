@@ -1,6 +1,13 @@
 # opifancontrol
 
-A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5 Plus). 
+A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5 Plus).
+
+## Features
+
+- Runs as a systemd service
+- Automatically control the speed of a PWM fan based on the temperature of the CPU
+- Configurable thresholds for fan speed and temperature
+- Ramp up and ramp down delays to avoid rapid on/off switching of the fan
 
 ## Installation
 
