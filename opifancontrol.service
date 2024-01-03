@@ -1,0 +1,12 @@
+[Unit]
+Description=Orange Pi Fan Control Service
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/opifancontrol.sh
+Restart=on-failure
+User=root
+
+[Install]
+WantedBy=multi-user.target
