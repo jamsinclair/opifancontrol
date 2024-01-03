@@ -19,8 +19,7 @@ curl -sSL https://raw.githubusercontent.com/jamsinclair/opifancontrol/main/insta
 
 ### Install manually
 
-<summary>
-Install the fan controller manually.
+<summary>Install the fan controller manually.
 <details>
 
 1. Copy the `opifancontrol.sh` script to `/usr/local/bin/` and make it executable:
@@ -30,19 +29,19 @@ cp opifancontrol.sh /usr/local/bin/opifancontrol
 chmod +x /usr/local/bin/opifancontrol
 ```
 
-1. Copy the `opifancontrol.conf` file to `/etc/`:
+2. Copy the `opifancontrol.conf` file to `/etc/`:
 
 ```bash
 cp opifancontrol.conf /etc/
 ```
 
-1. Copy the `opifancontrol.service` file to `/etc/systemd/system/`:
+3. Copy the `opifancontrol.service` file to `/etc/systemd/system/`:
 
 ```bash
 cp opifancontrol.service /etc/systemd/system/
 ```
 
-1. Enable the service:
+4. Enable the service:
 
 ```bash
 systemctl enable opifancontrol.service
