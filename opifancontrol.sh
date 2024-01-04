@@ -77,6 +77,8 @@ smooth_ramp() {
     while [ $current_pwm -ne $target_pwm ]; do
         if [ $target_pwm -eq 0 ]; then
             current_pwm=0
+        elif [ $current_pwm -eq 0 ]; then
+            current_pwm=$target_pwm
         elif [ $current_pwm -lt $target_pwm ]; then
             current_pwm=$((current_pwm + ramp_step))
             if [ $current_pwm -gt $target_pwm ]; then
