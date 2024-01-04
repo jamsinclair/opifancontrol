@@ -68,10 +68,10 @@ FAN_GPIO_PIN=2
 # TEMP_LOW, TEMP_MED, TEMP_HIGH are in degrees Celsius
 # FAN_LOW, FAN_MED, FAN_HIGH are in percent of max fan speed, max 100.
 # The fan will only be turned on if the temperature is above TEMP_LOW.
-TEMP_LOW=50
-FAN_LOW=75
+TEMP_LOW=55
+FAN_LOW=50
 TEMP_MED=65
-FAN_MED=89
+FAN_MED=75
 TEMP_HIGH=70
 FAN_HIGH=100
 
@@ -84,8 +84,12 @@ RAMP_UP_DELAY_SECONDS=15
 RAMP_DOWN_DELAY_SECONDS=60
 
 # The PWM range and clock are used to control the fan speed. You shouldn't need to change these unless you know what you're doing.
-PWM_RANGE=1024
-PWM_CLOCK=375
+# Assumes the CPU fan runs at 25kHz.
+PWM_RANGE=192
+PWM_CLOCK=4
+
+# Set to true to enable debug logging of fan speed changes.
+DEBUG=false
 ```
 
 ## Uninstallation
