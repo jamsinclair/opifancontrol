@@ -30,9 +30,25 @@ LAST_RAMPED_DOWN_TS=0
 # Initialize GPIO pin for PWM
 gpio export $FAN_GPIO_PIN out
 gpio mode $FAN_GPIO_PIN pwm
+gpio pwm $FAN_GPIO_PIN 0
 gpio pwmr $FAN_GPIO_PIN $PWM_RANGE
 gpio pwmc $FAN_GPIO_PIN $PWM_CLOCK
-gpio pwm $FAN_GPIO_PIN 0
+
+debug () {
+    if [ "$DEBUG" = true ]; then
+        echo "$1"
+    fi
+}
+
+echo "Starting opifancontrol..."
+echo "PWM range: $PWM_RANGE"
+echo "PWM clock: $PWM_CLOCK"
+echo "Fan GPIO pin: $FAN_GPIO_PIN"
+echo "Temperature poll interval: $TEMP_POLL_SECONDS seconds"
+echo "Temperature thresholds (C): $TEMP_LOW, $TEMP_MED, $TEMP_HIGH"
+echo "Fan speed thresholds (%): $FAN_LOW, $FAN_MED, $FAN_HIGH"
+echo "Ramp up delay: $RAMP_UP_DELAY_SECONDS seconds"
+echo "Ramp down delay: $RAMP_DOWN_DELAY_SECONDS seconds"
 
 percent_to_pwm() {
     local percent=$1
@@ -107,6 +123,7 @@ while true; do
             LAST_RAMPED_DOWN_TS=$(date +%s)
         fi
 
+        debug "Changing Fan Speed | CPU temp: $CPU_TEMP, target PWM: $TARGET_PWM, current PWM: $CURRENT_PWM"
         smooth_ramp $CURRENT_PWM $TARGET_PWM 10 0.1
     fi
 
