@@ -33,6 +33,8 @@ gpio mode $FAN_GPIO_PIN pwm
 gpio pwm $FAN_GPIO_PIN 0
 gpio pwmr $FAN_GPIO_PIN $PWM_RANGE
 gpio pwmc $FAN_GPIO_PIN $PWM_CLOCK
+# Need to set to 0 again after setting the clock and range
+gpio pwm $FAN_GPIO_PIN 0
 
 debug () {
     if [ "$DEBUG" = true ]; then
