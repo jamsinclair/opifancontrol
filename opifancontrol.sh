@@ -128,7 +128,7 @@ while true; do
         fi
 
         debug "Changing Fan Speed | CPU temp: $CPU_TEMP, target PWM: $TARGET_PWM, current PWM: $CURRENT_PWM"
-        smooth_ramp $CURRENT_PWM $TARGET_PWM 10 0.1
+        smooth_ramp $CURRENT_PWM $TARGET_PWM 2 0.2
     fi
 
     sleep $TEMP_POLL_SECONDS
