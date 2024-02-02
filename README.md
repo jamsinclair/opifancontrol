@@ -2,6 +2,8 @@
 
 A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5 Plus).
 
+ℹ️ This is for fans connected through standard GPIO header pins. Orange Pi 5 Plus has a dedicated fan header, which can be configured by following the manual.
+
 ## Features
 
 - Runs as a systemd service
@@ -9,7 +11,17 @@ A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5 
 - Configurable thresholds for fan speed and temperature
 - Ramp up and ramp down delays to avoid rapid on/off switching of the fan
 
-## Installation
+# Hardware Setup
+
+I am currently using:
+- Orange Pi 5 Plus
+- [GeeekPi PWM Controllable Fan 40x40x10mm](https://www.amazon.co.jp/gp/product/B092VRPC8H)
+
+For the Orange Pi 5 Plus, I connect the fan to the 5V and GND pins and the PWM wire to the physical pin 5 (wPi pin 2) on the GPIO header
+
+![Pins to connect fan to on the Orange 5 Plus board](/images/opi5plus-setup.png)
+
+## Software Installation
 
 ### Prerequisites
 
