@@ -28,7 +28,7 @@ CURRENT_PWM=0
 LAST_RAMPED_DOWN_TS=0
 
 # Initialize GPIO pin for PWM
-gpio export $FAN_GPIO_PIN out
+#gpio export $FAN_GPIO_PIN out
 gpio mode $FAN_GPIO_PIN pwm
 gpio pwm $FAN_GPIO_PIN 0
 gpio pwmr $FAN_GPIO_PIN $PWM_RANGE
@@ -102,7 +102,7 @@ smooth_ramp() {
 }
 
 while true; do
-    CPU_TEMP=$(cat /sys/class/thermal/thermal_zone0/temp)
+    CPU_TEMP=$(cat /sys/class/thermal/thermal_zone1/temp)
     CPU_TEMP=$((CPU_TEMP / 1000))
 
     if [ $CPU_TEMP -lt $TEMP_LOW ]; then
@@ -116,13 +116,18 @@ while true; do
     fi
 
     if [ $TARGET_PWM -ne $CURRENT_PWM ]; then
+        BASE_RAMP_UP_DELAY_TS=$(date +%s)
         # If the fan is currently off, wait for the ramp up delay before turning it on to avoid rapid on/off cycles
-        if [ $TARGET_PWM -gt $CURRENT_PWM ] && [ $((LAST_RAMPED_DOWN_TS + $RAMP_UP_DELAY_SECONDS)) -gt $(date +%s) ]; then
-            TARGET_PWM=$CURRENT_PWM
+        if [ $TARGET_PWM -gt $CURRENT_PWM ] && [ $((LAST_RAMPED_DOWN_TS + $RAMP_UP_DELAY_SECONDS)) -gt $BASE_RAMP_UP_DELAY_TS ]; then
+            RAMP_UP_DELAY_REMAIN_SECONDS=$(($RAMP_UP_DELAY_SECONDS - $BASE_RAMP_UP_DELAY_TS + $LAST_RAMPED_DOWN_TS))
+            debug "Delay of $RAMP_UP_DELAY_REMAIN_SECONDS sec before turning on the fan ... Target PWM: $TARGET_PWM"
+            #TARGET_PWM=$CURRENT_PWM
+            sleep $RAMP_UP_DELAY_REMAIN_SECONDS
         fi
 
         if [ $TARGET_PWM -eq 0 ]; then
             # Wait for the ramp down delay before turning off the fan to avoid rapid on/off cycles
+            debug "Delay of $RAMP_DOWN_DELAY_SECONDS sec before turning off the fan ... Target PWM: $TARGET_PWM"
             sleep $RAMP_DOWN_DELAY_SECONDS
             LAST_RAMPED_DOWN_TS=$(date +%s)
         fi
