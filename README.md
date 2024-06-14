@@ -1,8 +1,8 @@
 # opifancontrol
 
-A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5 Plus).
+A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5, and Orange Pi 5 Plus).
 
-ℹ️ This is for fans connected through standard GPIO header pins. Orange Pi 5 Plus has a dedicated fan header, which can be configured by following the manual.
+ℹ️ This is for fans connected through standard GPIO header pins. Orange Pi 5, and Orange Pi 5 Plus have a dedicated fan header, which can be configured by following the manual.
 
 ## Features
 
