@@ -135,6 +135,7 @@ while true; do
             # Wait for the ramp down delay before turning off the fan to avoid rapid on/off cycles
             debug "Delay of $RAMP_DOWN_DELAY_SECONDS sec before turning off the fan ... Target PWM: $TARGET_PWM"
             sleep $RAMP_DOWN_DELAY_SECONDS
+            debug "Turning off the fan"
             LAST_RAMPED_DOWN_TS=$(date +%s)
         fi
 
