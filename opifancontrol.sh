@@ -125,7 +125,7 @@ while true; do
             sleep $RAMP_UP_DELAY_REMAIN_SECONDS
         fi
 
-        if [ $TARGET_PWM -eq 0 ]; then
+        if [ $TARGET_PWM -eq 0 ] && [ $CURRENT_PWM -ne 0 ]; then
             # Wait for the ramp down delay before turning off the fan to avoid rapid on/off cycles
             debug "Delay of $RAMP_DOWN_DELAY_SECONDS sec before turning off the fan ... Target PWM: $TARGET_PWM"
             sleep $RAMP_DOWN_DELAY_SECONDS
