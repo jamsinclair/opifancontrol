@@ -2,7 +2,7 @@
 
 A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5, and Orange Pi 5 Plus).
 
-ℹ️ This is for fans connected through standard GPIO header pins. Orange Pi 5, and Orange Pi 5 Plus have a dedicated fan header, which can be configured by following the manual.
+ℹ️ This is for fans connected through standard GPIO header pins. Orange Pi 5, and Orange Pi 5 Plus also have a dedicated fan header, which can be configured by following the manual.
 
 ## Features
 
@@ -31,7 +31,7 @@ Connect the 3 fan wires.
 
 We recommend to use the pins that are closest to each other, therfore physical pins `4` for `5V`, `6` for `GND` and `7` for `PWM` marked below:
 
-![Pins to connect fan onto to the Orange 5 board](/images/opi5-setup.png)
+<img alt="Pins to connect fan onto to the Orange 5 board" src="/images/opi5-setup.png" width=600 />
 
 
 ### Orange Pi 5 Plus
