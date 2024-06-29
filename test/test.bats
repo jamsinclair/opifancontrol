@@ -76,7 +76,7 @@ teardown() {
     ./opifancontrol.sh > $SCRIPT_LOG & sleep 2;
     echo "45000" > "$TEMP_FILE";
     sleep 2;
-    if cat $SCRIPT_LOG | grep "Turning off the fan"; then 
+    if cat $SCRIPT_LOG | grep "Turning off the fan"; then
         echo "Turning off the fan message should not be printed yet";
         pkill -f "opifancontrol.sh";
         exit 1;
@@ -99,7 +99,7 @@ teardown() {
     echo "45000" > "$TEMP_FILE";
     sleep 4;
     # Check that the turning off the fan message is printed
-    if cat $SCRIPT_LOG | grep "Turning off the fan"; then 
+    if cat $SCRIPT_LOG | grep "Turning off the fan"; then
         # noop
         echo "";
     else
@@ -112,7 +112,7 @@ teardown() {
 
     EXPECTED_CURRENT_PWM=0
     EXPECTED_TARGET_PWM=$(percent_to_pwm 50)
-    if cat $SCRIPT_LOG | grep "sec before turning on the fan ... Target PWM: $EXPECTED_TARGET_PWM"; then 
+    if cat $SCRIPT_LOG | grep "sec before turning on the fan ... Target PWM: $EXPECTED_TARGET_PWM"; then
         # noop
         echo "";
     else
@@ -126,4 +126,21 @@ teardown() {
 
     tail -2 $SCRIPT_LOG # This will print the logs on failure
     tail -2 $SCRIPT_LOG | grep "Changing Fan Speed | CPU temp: 55, target PWM: $EXPECTED_TARGET_PWM, current PWM: $EXPECTED_CURRENT_PWM"
+}
+
+@test "Nothing should happen when temperature is below set thresholds" {
+    echo "45000" > "$TEMP_FILE";
+    ./opifancontrol.sh > $SCRIPT_LOG & sleep 2;
+    pkill -f "opifancontrol.sh";
+
+    cat $SCRIPT_LOG # This will print the logs on failure
+    if cat $SCRIPT_LOG | grep "Changing Fan Speed"; then
+        echo "Fan speed should not change";
+        exit 1;
+    fi
+
+    if cat $SCRIPT_LOG | grep "Turning off the fan"; then
+        echo "Turning off the fan message should not be printed";
+        exit 1;
+    fi
 }
