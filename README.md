@@ -31,7 +31,7 @@ Connect the 3 fan wires.
 
 We recommend to use the pins that are closest to each other, therfore physical pins `4` for `5V`, `6` for `GND` and `7` for `PWM` marked below:
 
-<img alt="Pins to connect fan onto to the Orange 5 board" src="/images/opi5-setup.png" width=600 />
+<img alt="Pins to connect fan onto to the Orange 5 board" src="/images/opi5-setup.png" width=400 />
 
 
 ### Orange Pi 5 Plus
