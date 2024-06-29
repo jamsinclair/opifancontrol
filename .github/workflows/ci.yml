@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+            submodules: recursive
+      - name: tests
+        run: ./test/bats/bin/bats test/test.bats
