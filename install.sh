@@ -10,7 +10,11 @@ echo ""
 curl -s https://raw.githubusercontent.com/jamsinclair/opifancontrol/main/opifancontrol.sh -o /usr/local/bin/opifancontrol.sh
 chmod +x /usr/local/bin/opifancontrol.sh
 
-curl -s https://raw.githubusercontent.com/jamsinclair/opifancontrol/main/opifancontrol.conf -o /etc/opifancontrol.conf
+if [ -f "/etc/opifancontrol.conf" ]; then
+    echo "Configuration file already exists at /etc/opifancontrol.conf. Skipping..."
+else
+    curl -s https://raw.githubusercontent.com/jamsinclair/opifancontrol/main/opifancontrol.conf -o /etc/opifancontrol.conf
+fi
 
 curl -s https://raw.githubusercontent.com/jamsinclair/opifancontrol/main/opifancontrol.service -o /etc/systemd/system/opifancontrol.service
 

@@ -44,15 +44,15 @@ For the Orange Pi 5 Plus, I connect the fan to the 5V and GND pins and the PWM w
 
 ![Pins to connect fan to on the Orange 5 Plus board](/images/opi5plus-setup.png)
 
-## Software Installation
+## Software Installation & Updates
 
 ### Prerequisites
 
 Installed the [wiringOP](https://github.com/orangepi-xunlong/wiringOP) library. Check the [installation instructions](https://github.com/orangepi-xunlong/wiringOP#how-to-download-wiringop).
 
-### Install via script
+### Install or Update via script
 
-Run the following command to install the fan controller:
+Run the following command to install or update the fan controller:
 
 ```bash
 # Run again with sudo if you get permission errors
