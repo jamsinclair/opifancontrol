@@ -1,4 +1,5 @@
 #!/bin/bash
+OPIFANCONTROL_VERSION="1.0.1"
 
 # Default values
 TEMP_LOW=55
@@ -48,7 +49,7 @@ debug () {
     fi
 }
 
-echo "Starting opifancontrol..."
+echo "Starting opifancontrol (v$OPIFANCONTROL_VERSION) ..."
 echo "PWM range: $PWM_RANGE"
 echo "PWM clock: $PWM_CLOCK"
 echo "Fan GPIO pin: $FAN_GPIO_PIN"
