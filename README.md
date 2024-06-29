@@ -1,8 +1,8 @@
 # opifancontrol
 
-A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5 Plus).
+A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5, and Orange Pi 5 Plus).
 
-ℹ️ This is for fans connected through standard GPIO header pins. Orange Pi 5 Plus has a dedicated fan header, which can be configured by following the manual.
+ℹ️ This is for fans connected through standard GPIO header pins. Orange Pi 5, and Orange Pi 5 Plus have a dedicated fan header, which can be configured by following the manual.
 
 ## Features
 
@@ -11,7 +11,30 @@ A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5 
 - Configurable thresholds for fan speed and temperature
 - Ramp up and ramp down delays to avoid rapid on/off switching of the fan
 
-# Hardware Setup
+# Setup
+
+## Hardware Setup
+
+### Orange Pi 5
+
+Needed parts:
+- Orange Pi 5
+- [Noctua NF-A4x10 5V PWM](https://noctua.at/en/nf-a4x10-5v-pwm) note that only the `5V PWM` is supported, other voltages or non `PWM` variants are not.
+
+Connect the 3 fan wires.
+1. What matters the most is the $\mathbf{\color{blue}{blue\quad PWM}}$ wire  matches the software configuration.
+   On the board use the physical pin `7` (`wPi` pin `2`) on the GPIO header to use the default software configuration without any change.
+   If for whatever reason you are forced to use another pin, then you will have to change the `FAN_GPIO_PIN`.
+   To do that see the [configuration](#configuration) section.
+2. For the $\mathbf{\color{yellow}{yellow\quad 5V}}$ you have 2 options physical pins `2` and `4`.
+3. For the $\mathbf{\color{black}{black\quad GND}}$ you have 3 options physical pins `6`, `14` and `20`.
+
+We recommend to use the pins that are closest to each other, therfore physical pins `4` for `5V`, `6` for `GND` and `7` for `PWM` marked below:
+
+![Pins to connect fan onto to the Orange 5 board](/images/opi5-setup.png)
+
+
+### Orange Pi 5 Plus
 
 I am currently using:
 - Orange Pi 5 Plus
