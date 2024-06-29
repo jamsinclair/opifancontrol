@@ -69,7 +69,7 @@ percent_to_pwm() {
 }
 
 cleanup() {
-    echo "Turning off the fan..."
+    echo "Exiting opifancontrol and setting fan pin to 0 PWM"
     gpio pwm $FAN_GPIO_PIN 0
     exit 0
 }
