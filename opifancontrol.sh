@@ -18,6 +18,13 @@ PWM_CLOCK=4
 
 CONFIG_FILE="/etc/opifancontrol.conf"
 
+# Detect if gpio command is available
+if ! command -v gpio > /dev/null; then
+    echo "Error: gpio command not found. Please install wiringPi."
+    echo "See: https://github.com/jamsinclair/opifancontrol?tab=readme-ov-file#software-installation"
+    exit 1
+fi
+
 if [ -r "$CONFIG_FILE" ]; then
     source "$CONFIG_FILE"
 else
