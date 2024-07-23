@@ -1,8 +1,8 @@
 # opifancontrol
 
-A simple PWM fan controller for Orange Pi boards (Only tested on an Orange Pi 5 and Orange Pi 5 Plus).
+A simple PWM fan controller for Orange Pi boards using GPIO pins (Only tested on an Orange Pi 5 and Orange Pi 5 Plus).
 
-ℹ️ This project uses a simple bash script to control fans connected through standard GPIO header pins. The SoC processor used by Orange Pi 5 and Orange Pi 5 Plus also supports built-in fan control that can be updated with UEFI firmware. This could be configured to use the existing fan connector (default) or GPIO pins to control the fan speed without the need for this project. For more information on how to update the UEFI firmware, see the [EDK2 UEFI firmware for Rockchip](https://github.com/edk2-porting/edk2-rk3588) or your Orange Pi manual. This project will not be updated to support the UEFI firmware fan control and aims to keep things simple.
+ℹ️ The SoC processor used by Orange Pi 5 and Orange Pi 5 Plus also supports built-in fan control that can be updated with UEFI firmware. This project is focused on a providing a simple solution without updating firmware. For more information see [UEFI Fan Control](#uefi-fan-control).
 
 ## Features
 
@@ -154,6 +154,12 @@ rm /usr/local/bin/opifancontrol.sh
 rm /etc/opifancontrol.conf
 rm /etc/systemd/system/opifancontrol.service
 ```
+
+## UEFI Fan Control
+
+The Orange Pi 5 and Orange Pi 5 Plus also have a dedicated fan header and fan control. This is supported by the Rockchip UEFI firmware and can be updated to select the pins, temperature thresholds and fan speeds for fan control without the need for this project.
+
+For more information on how to update the UEFI firmware, see the [EDK2 UEFI firmware for Rockchip](https://github.com/edk2-porting/edk2-rk3588) or your Orange Pi manual. This project will not be updated to support the UEFI firmware fan control and aims to keep things simple.
 
 ## License
 
