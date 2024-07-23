@@ -1,5 +1,5 @@
 #!/bin/bash
-OPIFANCONTROL_VERSION="1.0.1"
+OPIFANCONTROL_VERSION="1.0.2"
 
 # Default values
 TEMP_LOW=55
@@ -58,6 +58,11 @@ echo "Temperature thresholds (C): $TEMP_LOW, $TEMP_MED, $TEMP_HIGH"
 echo "Fan speed thresholds (%): $FAN_LOW, $FAN_MED, $FAN_HIGH"
 echo "Ramp up delay: $RAMP_UP_DELAY_SECONDS seconds"
 echo "Ramp down delay: $RAMP_DOWN_DELAY_SECONDS seconds"
+if [ "$DEBUG" = true ]; then
+    echo "Debugging enabled"
+else
+    echo "Debugging is disabled. To log fan speed changes, set DEBUG=true in /etc/opifancontrol.conf"
+fi
 
 percent_to_pwm() {
     local percent=$1

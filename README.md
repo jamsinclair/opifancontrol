@@ -127,6 +127,17 @@ PWM_CLOCK=4
 DEBUG=false
 ```
 
+## Debugging
+
+Update the config file with your editor of choice (vim, nano etc.)
+1. `nano /etc/opifancontrol.conf`
+2. Add the line `DEBUG=true` or update the existing line to match.
+
+The debugging information can be printed out with `journalctl`
+1. `journalctl -u opifancontrol`
+
+This will output information of the current settings and changes to fan speed.
+
 ## Uninstallation
 
 To uninstall the fan controller, first stop and disable the service:
