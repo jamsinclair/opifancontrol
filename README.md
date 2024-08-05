@@ -67,8 +67,8 @@ curl -sSL https://raw.githubusercontent.com/jamsinclair/opifancontrol/main/insta
 1. Copy the `opifancontrol.sh` script to `/usr/local/bin/` and make it executable:
 
 ```bash
-cp opifancontrol.sh /usr/local/bin/opifancontrol
-chmod +x /usr/local/bin/opifancontrol
+cp opifancontrol.sh /usr/local/bin/opifancontrol.sh
+chmod +x /usr/local/bin/opifancontrol.sh
 ```
 
 2. Copy the `opifancontrol.conf` file to `/etc/`:
