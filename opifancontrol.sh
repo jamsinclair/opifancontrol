@@ -17,7 +17,7 @@ FAN_GPIO_PIN=2
 PWM_RANGE=192
 PWM_CLOCK=4
 
-CONFIG_FILE="/etc/opifancontrol.conf"
+CONFIG_FILE="${1:-/etc/opifancontrol.conf}"
 
 # Detect if gpio command is available
 if ! command -v gpio > /dev/null; then
