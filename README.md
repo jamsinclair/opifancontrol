@@ -91,6 +91,45 @@ systemctl enable opifancontrol.service
 </details>
 </summary>
 
+### Install as nix flake
+
+<summary>The flake URL is <code>github:jamsinclair/opifancontrol</code>.
+<details>
+
+* `wiringOP` is included.
+* Exposed packages are `opifancontrol` and `wiringOP`, which includes `gpio` command for debugging
+(e.g. `gpio readall` to print your board's pin layout).
+* Creates a systemd unit for each configured fan.
+
+Example:
+
+```
+  services.opifancontrol = {
+    enable = true;
+    boardType = "orangepi5plus";
+    fans."cpu" = {
+      tempLow = 35;
+      tempMed = 45;
+      tempHigh = 50;
+      fanLow = 30;
+      fanMed = 50;
+      fanHigh = 60;
+    };
+    fans."box" = {
+      fanGpioPin = 22;
+      tempLow = 40;
+      tempMed = 45;
+      tempHigh = 50;
+      fanLow = 20;
+      fanMed = 30;
+      fanHigh = 40;
+      debug = true;
+    };
+  };
+```
+</details>
+</summary>
+
 ## Configuration
 
 The configuration file is located at `/etc/opifancontrol.conf`. The default configuration is:
