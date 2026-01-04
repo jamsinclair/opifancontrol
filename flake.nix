@@ -201,7 +201,7 @@
 
             rampPercentPerStep = lib.mkOption {
               type = lib.types.int;
-              default = 2;
+              default = 3;
               description = "Percentage to change fan speed per step when ramping";
             };
 
