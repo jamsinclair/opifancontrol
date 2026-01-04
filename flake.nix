@@ -199,15 +199,33 @@
               description = "Delay before turning fan off to avoid rapid on/off cycles";
             };
 
+            rampPercentPerStep = lib.mkOption {
+              type = lib.types.int;
+              default = 2;
+              description = "Percentage to change fan speed per step when ramping";
+            };
+
+            rampStepDelay = lib.mkOption {
+              type = lib.types.float;
+              default = 0.03;
+              description = "Delay in seconds between each ramping step";
+            };
+
+            fanMinPercent = lib.mkOption {
+              type = lib.types.int;
+              default = 30;
+              description = "Minimum fan speed percentage when the fan is on";
+            };
+
             pwmRange = lib.mkOption {
               type = lib.types.int;
-              default = 192;
+              default = 96;
               description = "PWM range for fan control";
             };
 
             pwmClock = lib.mkOption {
               type = lib.types.int;
-              default = 4;
+              default = 10;
               description = "PWM clock for fan control";
             };
 
@@ -232,6 +250,9 @@
             TEMP_POLL_SECONDS=${toString fanConfig.tempPollSeconds}
             RAMP_UP_DELAY_SECONDS=${toString fanConfig.rampUpDelaySeconds}
             RAMP_DOWN_DELAY_SECONDS=${toString fanConfig.rampDownDelaySeconds}
+            RAMP_PERCENT_PER_STEP=${toString fanConfig.rampPercentPerStep}
+            RAMP_STEP_DELAY=${toString fanConfig.rampStepDelay}
+            FAN_MIN_PERCENT=${toString fanConfig.fanMinPercent}
             PWM_RANGE=${toString fanConfig.pwmRange}
             PWM_CLOCK=${toString fanConfig.pwmClock}
             DEBUG=${

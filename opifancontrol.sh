@@ -1,5 +1,5 @@
 #!/bin/bash
-OPIFANCONTROL_VERSION="1.0.2"
+OPIFANCONTROL_VERSION="1.1.0"
 
 # Default values
 TEMP_LOW=55
@@ -12,10 +12,13 @@ TEMP_POLL_SECONDS=2
 
 RAMP_UP_DELAY_SECONDS=15
 RAMP_DOWN_DELAY_SECONDS=60
+RAMP_PERCENT_PER_STEP=2
+RAMP_STEP_DELAY=0.03
+FAN_MIN_PERCENT=30
 
 FAN_GPIO_PIN=2
-PWM_RANGE=192
-PWM_CLOCK=4
+PWM_RANGE=96
+PWM_CLOCK=10
 
 CONFIG_FILE="${1:-/etc/opifancontrol.conf}"
 
@@ -66,11 +69,9 @@ fi
 
 percent_to_pwm() {
     local percent=$1
-    if [ $percent -gt 100 ]; then
-        percent=100
-    fi
-    local pwm=$((percent * PWM_RANGE / 100))
-    printf "%.0f" $pwm
+    if [ $percent -gt 100 ]; then percent=100; fi
+    if [ $percent -lt 0 ]; then percent=0; fi
+    echo $((percent * PWM_RANGE / 100))
 }
 
 cleanup() {
@@ -85,20 +86,35 @@ trap cleanup EXIT
 smooth_ramp() {
     local current_pwm=$1
     local target_pwm=$2
-    local ramp_step=$3
-    local ramp_delay=$4
+
+    # Calculate step size based on range and percentage
+    local ramp_step=$((PWM_RANGE * RAMP_PERCENT_PER_STEP / 100))
+    if [ $ramp_step -lt 1 ]; then ramp_step=1; fi
+
+    # Get minimum PWM value for fan startup
+    local min_pwm=$(percent_to_pwm $FAN_MIN_PERCENT)
 
     while [ $current_pwm -ne $target_pwm ]; do
         if [ $target_pwm -eq 0 ]; then
-            current_pwm=0
-        elif [ $current_pwm -eq 0 ]; then
-            current_pwm=$target_pwm
+            # Ramping down to off
+            current_pwm=$((current_pwm - ramp_step))
+            if [ $current_pwm -le 0 ]; then
+                current_pwm=0
+            fi
+        elif [ $current_pwm -eq 0 ] && [ $target_pwm -gt 0 ]; then
+            # Starting from off - jump to minimum then continue
+            current_pwm=$min_pwm
+            if [ $current_pwm -gt $target_pwm ]; then
+                current_pwm=$target_pwm
+            fi
         elif [ $current_pwm -lt $target_pwm ]; then
+            # Ramping up
             current_pwm=$((current_pwm + ramp_step))
             if [ $current_pwm -gt $target_pwm ]; then
                 current_pwm=$target_pwm
             fi
         else
+            # Ramping down
             current_pwm=$((current_pwm - ramp_step))
             if [ $current_pwm -lt $target_pwm ]; then
                 current_pwm=$target_pwm
@@ -106,8 +122,7 @@ smooth_ramp() {
         fi
 
         gpio pwm $FAN_GPIO_PIN $current_pwm
-
-        sleep $ramp_delay
+        sleep $RAMP_STEP_DELAY
     done
 
     CURRENT_PWM=$target_pwm
@@ -145,7 +160,7 @@ while true; do
         fi
 
         debug "Changing Fan Speed | CPU temp: $CPU_TEMP, target PWM: $TARGET_PWM, current PWM: $CURRENT_PWM"
-        smooth_ramp $CURRENT_PWM $TARGET_PWM 2 0.2
+        smooth_ramp $CURRENT_PWM $TARGET_PWM
     fi
 
     sleep $TEMP_POLL_SECONDS
