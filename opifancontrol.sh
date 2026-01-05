@@ -71,7 +71,7 @@ percent_to_pwm() {
     local percent=$1
     if [ $percent -gt 100 ]; then percent=100; fi
     if [ $percent -lt 0 ]; then percent=0; fi
-    printf "%.0f" $(echo "scale=2; $percent * $PWM_RANGE / 100" | bc)
+    echo $(((percent * PWM_RANGE + 50) / 100))
 }
 
 cleanup() {
@@ -88,7 +88,7 @@ smooth_ramp() {
     local target_pwm=$2
 
     # Calculate step size based on range and percentage
-    local ramp_step=$((PWM_RANGE * RAMP_PERCENT_PER_STEP / 100))
+    local ramp_step=$(((PWM_RANGE * RAMP_PERCENT_PER_STEP + 50) / 100))
     if [ $ramp_step -lt 1 ]; then ramp_step=1; fi
 
     # Get minimum PWM value for fan startup
