@@ -156,11 +156,17 @@ TEMP_POLL_SECONDS=2
 RAMP_UP_DELAY_SECONDS=15
 # The ramp down delay is how long the fan will stay on after the temperature drops below the threshold.
 RAMP_DOWN_DELAY_SECONDS=60
+# The amount to change the fan speed per step when ramping up or down, in percent.
+RAMP_PERCENT_PER_STEP=2
+# The delay between each step when ramping up or down, in seconds.
+RAMP_STEP_DELAY=0.03
+# The minimum fan speed percentage when the fan is on. This helps ensure the fan always spins when activated.
+FAN_MIN_PERCENT=30
 
 # The PWM range and clock are used to control the fan speed. You shouldn't need to change these unless you know what you're doing.
 # Assumes the CPU fan runs at 25kHz.
-PWM_RANGE=192
-PWM_CLOCK=4
+PWM_RANGE=96
+PWM_CLOCK=10
 
 # Set to true to enable debug logging of fan speed changes.
 DEBUG=false
