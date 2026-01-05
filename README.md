@@ -42,14 +42,12 @@ I am currently using:
 
 For the Orange Pi 5 Plus, I connect the fan to the 5V and GND pins and the PWM wire to the physical pin 7 (wPi pin 2) on the GPIO header.
 
-Because some Orange Pi 5 Plus boards produce an unstable PWM frequency with the default settings, set the following in `/etc/opifancontrol.conf`:
+It has been reported that some Orange Pi 5 Plus boards produce an unstable PWM frequency with the default settings. If you encounter this try setting the following in `/etc/opifancontrol.conf`:
 
 ```
-PWM_RANGE=1000
-PWM_CLOCK=1
+PWM_RANGE=480
+PWM_CLOCK=2
 ```
-
-With a range of 1000, the clock of 1 keeps the PWM frequency high enough for typical 25kHz fans.
 
 ![Pins to connect fan to on the Orange 5 Plus board](/images/opi5plus-setup.png)
 
