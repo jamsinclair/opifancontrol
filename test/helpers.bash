@@ -6,7 +6,7 @@ percent_to_pwm() {
     local percent=$1
     if [ $percent -gt 100 ]; then percent=100; fi
     if [ $percent -lt 0 ]; then percent=0; fi
-    echo $((percent * PWM_RANGE / 100))
+    printf "%.0f" $(echo "scale=2; $percent * $PWM_RANGE / 100" | bc)
 }
 
 sed_cross_platform() {

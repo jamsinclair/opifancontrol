@@ -12,7 +12,7 @@ TEMP_POLL_SECONDS=2
 
 RAMP_UP_DELAY_SECONDS=15
 RAMP_DOWN_DELAY_SECONDS=60
-RAMP_PERCENT_PER_STEP=3
+RAMP_PERCENT_PER_STEP=2
 RAMP_STEP_DELAY=0.03
 FAN_MIN_PERCENT=30
 
@@ -71,7 +71,7 @@ percent_to_pwm() {
     local percent=$1
     if [ $percent -gt 100 ]; then percent=100; fi
     if [ $percent -lt 0 ]; then percent=0; fi
-    echo $((percent * PWM_RANGE / 100))
+    printf "%.0f" $(echo "scale=2; $percent * $PWM_RANGE / 100" | bc)
 }
 
 cleanup() {
